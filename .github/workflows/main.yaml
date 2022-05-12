@@ -1,0 +1,24 @@
+name: My Test Pipeline
+
+on:
+  push:
+    branches:
+      - feature/**
+  pull_request:
+    branches:
+      - release/**
+
+jobs:
+  Work:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup env
+        run: |
+          if [ ${{ contains(github.ref, 'refs/heads/feature') }} ] ; then
+            echo "ENV=dev" >> $GITHUB_ENV
+          else
+            echo "invalid env"
+            exit 1
+          fi
+      - name: echo env
+        run: echo ${{ env.ENV }}
