@@ -14,11 +14,13 @@ jobs:
   Work:
     runs-on: ubuntu-latest
     steps:
-      - name: echo github.event.action
-        run: echo ${{ github.event.action }}
+      - name: echo
+        run: |
+          echo ${{ github.event.action }}
+          echo ${{ github.base_ref }}
       - name: setup env
         run: |
-          if [ ${{ contains(github.ref, 'refs/heads/feature') }} ] ; then
+          if ${{ contains(github.ref, 'refs/heads/feature') }} ; then
             echo "ENV=dev" >> $GITHUB_ENV
           elif [ ${{ contains(github.head_ref, 'release/') }} ] && [ github.base_ref == "deployment/qas" ] && [ ${{ contains(fromJSON('["open", "reopen"]'), github.event.action) }} ] ; then
             echo "ENV=qas" >> $GITHUB_ENV
@@ -28,5 +30,5 @@ jobs:
             echo "invalid env"
             exit 1
           fi
-      - name: echo env
+      - name: echo ${{ env.ENV }}
         run: echo ${{ env.ENV }}
