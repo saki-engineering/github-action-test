@@ -53,4 +53,12 @@ jobs:
       - name: delete tag
         run: |
           git push -d origin v1.0.0 || :
-      
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0.0
+          release_name: v1.0.0
+          draft: false
+          prerelease: false
