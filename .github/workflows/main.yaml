@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo github.event.action
-        run: echo ${github.event.action}
+        run: echo ${{ github.event.action }}
       - name: setup env
         run: |
           if [ ${{ contains(github.ref, 'refs/heads/feature') }} ] ; then
