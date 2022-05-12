@@ -6,7 +6,8 @@ on:
       - feature/**
   pull_request:
     branches:
-      - release/**
+      - "deployment/qas"
+      - "deployment/prd"
     types: [opened, reopened, closed]
 
 jobs:
