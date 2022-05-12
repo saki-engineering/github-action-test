@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - release/**
+    types: [opened, reopened, closed]
 
 jobs:
   Work:
@@ -16,6 +17,10 @@ jobs:
         run: |
           if [ ${{ contains(github.ref, 'refs/heads/feature') }} ] ; then
             echo "ENV=dev" >> $GITHUB_ENV
+          elif [ ${{ github.event == "pull_request" }} ] && [ ${{ github.base_ref == "deployment/qas" }} ] && [ ${{ contains(fromJSON('["open", "reopen"]'), github.event.action) }} ] ; then
+            echo "ENV=qas" >> $GITHUB_ENV
+          elif [ ${{ github.event == "pull_request" }} ] && [ ${{ github.base_ref == "deployment/prd" }} ] && [ ${{ github.event.action == "closed" }} ] && [ ${{ github.event.pull_request.merged == true }} ] ; then
+            echo "ENV=prd" >> $GITHUB_ENV
           else
             echo "invalid env"
             exit 1
