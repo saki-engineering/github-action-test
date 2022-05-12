@@ -19,21 +19,32 @@ jobs:
           echo ${{ github.event.action }}
           echo ${{ github.base_ref }}
       - name: setup env
+        id: setup_env
         run: |
           if ${{ contains(github.ref, 'refs/heads/feature') }} ; then
-            echo "ENV=dev" >> $GITHUB_ENV
+            echo ::set-output name=env::dev
           elif ${{ contains(github.head_ref, 'release/') }} \
                 && [ "${{github.base_ref}}" == "deployment/qas" ] \
                 && ${{ contains(fromJSON('["opened", "reopened"]'), github.event.action) }} ; then
-            echo "ENV=qas" >> $GITHUB_ENV
+            echo ::set-output name=env::qas
           elif ${{ contains(github.head_ref, 'release/') }} \
               && [ "${{github.base_ref}}" == "deployment/prd" ] \
               && [ "${{github.event.action}}" == "closed" ] \
               && [ ${{github.event.pull_request.merged}} == true ] ; then
-            echo "ENV=prd" >> $GITHUB_ENV
+            echo ::set-output name=env::prd
           else
-            echo "invalid env"
-            exit 1
+            :
           fi
-      - name: echo ${{ env.ENV }}
+    outputs:
+      env: ${{ steps.setup_env.outputs.env }}
+
+# echo "ENV=prd" >> $GITHUB_ENV
+
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: Deploy
+    steps:
+      - name: get env
+        run: echo "ENV=${{needs.Deploy.outputs.env}}" >> $GITHUB_ENV
+      - name: echo env
         run: echo ${{ env.ENV }}
