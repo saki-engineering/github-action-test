@@ -1,4 +1,4 @@
 if [ a == a ] &&  \
 		[ B == B ]; then
-	echo "test"
+	echo "waiwai"
 fi
