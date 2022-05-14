@@ -5,26 +5,13 @@ on: [push]
 jobs:
   Test:
     runs-on: ubuntu-latest
-    env:
-      JOB: job
     steps:
-      - name: rewrite-env
-        env:
-          JOB: step
-        run: echo ${JOB}
+      - name: step1
+        run: exit 1
 
-      - name: check-env
-        run: echo ${JOB}
+      - name: step2
+        run: echo step2
 
-      - name: github-env-1
-        run: echo "GLOBAL=waiwai" >> $GITHUB_ENV
-
-      - name: github-env-2
-        run: echo ${{env.GLOBAL}}
-
-      - name: set-1
-        id: set-1-id
-        run: echo '::set-output name=SET::hello'
-
-      - name: set-2
-        run: echo ${{ steps.set-1-id.outputs.SET }}
+      - name: step3
+        if: failure()
+        run: echo step3
