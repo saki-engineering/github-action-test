@@ -17,7 +17,7 @@ jobs:
     if: needs.Job1.outputs.condition == 'b'
     steps:
       - name: step1
-        run: exit 1
+        run: echo b
 
   Job3:
     runs-on: ubuntu-latest
@@ -33,4 +33,4 @@ jobs:
     if: always() && (needs.Job2.result == 'success' || needs.Job3.result == 'success')
     steps:
       - name: step1
-        run: echo d
+        run: echo ${{ needs.*.result }}
