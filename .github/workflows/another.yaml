@@ -6,6 +6,9 @@ env:
   WFENV: default1
 
 jobs:
+  Reuse:
+    uses: ./.github/workflows/callee.yml
+
   Job1:
     runs-on: ubuntu-latest
     env:
