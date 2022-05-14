@@ -1,0 +1,11 @@
+name: My Another Pipeline
+
+on: [push]
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: |
+          echo ${{ github.event }}
