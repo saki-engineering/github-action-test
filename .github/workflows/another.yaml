@@ -6,6 +6,11 @@ jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
-      - name: echo
+      - name: one-run 
         run: |
-          echo ${{ github.event }}
+          readonly AAAA = 1111
+          echo ${AAAA}
+      - name: sep-run-1
+        run: readonly BBBB = 2222
+      - name: sep-run-2
+        run: echo ${BBBB}
