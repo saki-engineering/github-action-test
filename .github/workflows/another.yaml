@@ -6,21 +6,16 @@ env:
   WFENV: default1
 
 jobs:
-  Reuse:
-    uses: ./.github/workflows/callee.yaml
-    with:
-      name: job
-  
   MyJob:
     runs-on: ubuntu-latest
-    needs: Reuse
+    env:
+      JOBENV: default2
     steps:
-      - name: pickup-output
-        run: echo ${{ needs.Reuse.outputs.message }}
-
       - name: git
         uses: actions/checkout@v3
 
-      - uses: ./.github/workflows/callee.yaml
-        with:
-          name: hsaki
+      - name: echo env
+        env:
+          STEPENV: default3
+        run: ./config.sh
+
