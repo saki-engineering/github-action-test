@@ -8,9 +8,9 @@ jobs:
     steps:
       - name: one-run 
         run: |
-          readonly AAAA = 1111
+          readonly AAAA=1111
           echo ${AAAA}
       - name: sep-run-1
-        run: readonly BBBB = 2222
+        run: readonly BBBB=2222
       - name: sep-run-2
         run: echo ${BBBB}
