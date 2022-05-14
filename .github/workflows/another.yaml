@@ -11,14 +11,9 @@ jobs:
     env:
       JOBENV: default2
     steps:
-      - name: git
-        uses: actions/checkout@v3
+      - name: pwd
+        id: pwd
+        run: echo "::set-output name=pwd::${pwd}"
 
-      - name: echo env
-        env:
-          STEPENV: default3
-        run: source ./config.sh && echo ${WFENV}
-
-      - name: echo ${WFENV}
-        run: echo ${WFENV}
-
+      - name: echo pwd
+        run: echo ${{ steps.pwd.outputs.pwd }}
