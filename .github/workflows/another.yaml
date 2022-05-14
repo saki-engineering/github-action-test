@@ -8,19 +8,16 @@ env:
 jobs:
   Reuse:
     uses: ./.github/workflows/callee.yaml
-
-  Job1:
+    with:
+      user: job
+  
+  MyJob:
     runs-on: ubuntu-latest
-    env:
-      JOBENV: default2
+    needs: Reuse
     steps:
-      - name: step1
-        env:
-          STEPENV: default3
-        run: |
-          WFENV=new1
-          JOBENV=new2
-          STEPENV=new3
-          echo ${WFENV}
-          echo ${JOBENV}
-          echo ${STEPENV}
+      - name: pickup-output
+        run: echo ${{ needs.Reuse.outputs.message }}
+
+      - uses: ./.github/workflows/callee.yaml
+        with:
+          user: hsaki
