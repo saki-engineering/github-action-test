@@ -17,5 +17,8 @@ jobs:
       - name: echo env
         env:
           STEPENV: default3
-        run: sh ./config.sh
+        run: sh ./config.sh && echo ${WFENV}
+
+      - name: echo ${WFENV}
+        run: echo ${WFENV}
 
