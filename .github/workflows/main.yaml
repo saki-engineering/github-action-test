@@ -51,9 +51,11 @@ jobs:
       - name: git
         uses: actions/checkout@v3
       - name: delete tag
+        if: contains(fromJSON('["qas", "prd"]') , env.ENV)
         run: |
           git push -d origin v1.0.0 || :
       - name: Create Release
+        if: contains(fromJSON('["qas", "prd"]') , env.ENV)
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
