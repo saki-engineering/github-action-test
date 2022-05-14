@@ -14,7 +14,7 @@ jobs:
   Job2:
     runs-on: ubuntu-latest
     needs: Job1
-    # if: ${{ needs.Job1.outputs.condition == b }}
+    if: needs.Job1.outputs.condition == 'b'
     steps:
       - name: step1
         run: echo ${{ needs.Job1.outputs.condition }}
