@@ -2,6 +2,7 @@ name: Callee
 
 on:
   workflow_call:
+  push:
 
 env:
   WFENV: default4
@@ -19,8 +20,3 @@ jobs:
           echo ${WFENV}
           echo ${JOBENV}
           echo ${STEPENV}
-  Job2:
-    runs-on: ubuntu-latest
-    steps:
-      - name: echo
-        run: echo job2
