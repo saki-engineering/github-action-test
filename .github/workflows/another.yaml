@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: pwd
         id: pwd
-        run: echo "::set-output name=pwd::${pwd}"
+        run: echo "::set-output name=pwd::$(pwd)"
 
       - name: echo pwd
         run: echo ${{ steps.pwd.outputs.pwd }}
