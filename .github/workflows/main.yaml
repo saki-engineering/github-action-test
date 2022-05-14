@@ -1,6 +1,7 @@
 name: My Test Pipeline
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - feature/**

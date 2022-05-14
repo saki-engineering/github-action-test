@@ -2,7 +2,6 @@ name: Callee
 
 on:
   workflow_call:
-  push:
 
 env:
   WFENV: default4
