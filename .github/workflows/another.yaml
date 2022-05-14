@@ -7,7 +7,7 @@ env:
 
 jobs:
   Reuse:
-    uses: .github/workflows/callee.yml
+    uses: .github/workflows/callee.yaml
 
   Job1:
     runs-on: ubuntu-latest
