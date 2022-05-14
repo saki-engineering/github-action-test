@@ -18,6 +18,9 @@ jobs:
       - name: pickup-output
         run: echo ${{ needs.Reuse.outputs.message }}
 
+      - name: git
+        uses: actions/checkout@v3
+
       - uses: ./.github/workflows/callee.yaml
         with:
           name: hsaki
