@@ -1,0 +1,21 @@
+name: Callee
+
+on:
+  workflow_call:
+
+env:
+  WFENV: default4
+
+jobs:
+  Job1:
+    runs-on: ubuntu-latest
+    env:
+      JOBENV: default5
+    steps:
+      - name: echo
+        env:
+          STEPENV: default6
+        run: |
+          echo ${WFENV}
+          echo ${JOBENV}
+          echo ${STEPENV}

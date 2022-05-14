@@ -1,0 +1,26 @@
+name: My Another Pipeline
+
+on: [push]
+
+env:
+  WFENV: default1
+
+jobs:
+  Reuse:
+    uses: ./.github/workflows/callee.yaml
+
+  Job1:
+    runs-on: ubuntu-latest
+    env:
+      JOBENV: default2
+    steps:
+      - name: step1
+        env:
+          STEPENV: default3
+        run: |
+          WFENV=new1
+          JOBENV=new2
+          STEPENV=new3
+          echo ${WFENV}
+          echo ${JOBENV}
+          echo ${STEPENV}
