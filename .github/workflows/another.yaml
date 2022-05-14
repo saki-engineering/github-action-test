@@ -5,12 +5,26 @@ on: [push]
 jobs:
   Test:
     runs-on: ubuntu-latest
+    env:
+      JOB: job
     steps:
-      - name: one-run 
-        run: |
-          readonly AAAA=1111
-          echo ${AAAA}
-      - name: sep-run-1
-        run: readonly BBBB=2222
-      - name: sep-run-2
-        run: echo ${BBBB}
+      - name: rewrite-env
+        env:
+          JOB: step
+        run: echo ${JOB}
+
+      - name: check-env
+        run: echo ${JOB}
+
+      - name: github-env-1
+        run: echo "GLOBAL=waiwai" >> $GITHUB_ENV
+
+      - name: github-env-2
+        run: echo ${env.GLOBAL}
+
+      - name: set-1
+        id: set-1-id
+        run: echo '::set-output name=SET::hello'
+
+      - name: set-2
+        run: echo ${{ steps.set-1-id.outputs.SET }}
