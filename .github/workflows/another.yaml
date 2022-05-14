@@ -20,7 +20,7 @@ jobs:
         run: echo "GLOBAL=waiwai" >> $GITHUB_ENV
 
       - name: github-env-2
-        run: echo ${env.GLOBAL}
+        run: echo ${{env.GLOBAL}}
 
       - name: set-1
         id: set-1-id
