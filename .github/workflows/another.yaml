@@ -17,5 +17,5 @@ jobs:
       - name: echo env
         env:
           STEPENV: default3
-        run: ./config.sh
+        run: sh ./config.sh
 
